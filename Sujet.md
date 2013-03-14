@@ -16,7 +16,7 @@ directement par Twitter (@nedseb) en utilisant le hashtag #TwitMiner
 pour que tout le monde puisse bénéficier de la réponse.
 
 À chaque fin du projet (voir ci-dessous pour les dates) vous devrez
-envoyer une archive au format zip contenant le travail réalisé ainsi
+envoyer pour chauque phase une archive au format zip contenant le travail réalisé ainsi
 qu'un fichier nommé "README.txt" expliquant clairement (10-15 lignes
 environs) ce que vous avez fait ainsi que la procédure à suivre pour
 tester votre travail. Le sujet du mail devra avoir le format suivant :
