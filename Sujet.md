@@ -20,7 +20,7 @@ envoyer une archive au format zip contenant le travail réalisé ainsi
 qu'un fichier nommé "README.txt" expliquant clairement (10-15 lignes
 environs) ce que vous avez fait ainsi que la procédure à suivre pour
 tester votre travail. Le sujet du mail devra avoir le format suivant :
- `[Projet_BDA] Rendu : Nom1, Nom2`
+ `[Projet_BDA] Rendu Phase X: Nom1, Nom2`
 
 Travail à réaliser :
 --------------------
@@ -39,36 +39,36 @@ dans des tweets que l'on aura transformé en transactions.
 -   Créer un compte Twitter et enregistrer une application
 -   Faire un programme (en Java vous pouvez utiliser la bibliothèque
     [Twitter4J](http://twitter4j.org/en/index.html) ) qui se connecte à
-    Twitter et qui récupère tous les tweets sur un sujet choisi. Stocker 
-    les résultats dans un fichier au format
-    [CSV](http://fr.wikipedia.org/wiki/Comma-separated_values). Le pays
-    et la date pouvant jouer un rôle dans l'analyse, chaque transaction
-    devra contenir un champ date et pays. Pour que notre analyse ne
-    tienne pas compte de l'ordre des différents mots dans une
-    transaction, vous pouvez les trier par ordre alphabétique.
+    Twitter et qui récupère tous les tweets sur un sujet choisi. 
+-   Stocker les résultats dans un fichier au format
+    [CSV](http://fr.wikipedia.org/wiki/Comma-separated_values). Le pays, 
+    la date et le pseudo de l'utilisateur ayant envoyé le tweet pouvant 
+    jouer un rôle dans l'analyse, chaque transaction devra contenir un champ 
+    date, pays et pseudo. Pour que notre analyse ne tienne pas compte de l'ordre 
+    des différents mots dans une transaction, vous pouvez les trier par ordre alphabétique.
 
 Voici un exemple de ce à quoi votre fichier csv pourrait ressembler :
 
-```                   
-01/02/2012 10:20 UTC; Australia; #tigerblood; #tilltheworldends; #winning; ...                   
-01/02/2012 10:20 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   
-01/02/2012 10:20 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS ...                   
-01/02/2012 10:20 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends ...                    
-01/02/2012 10:20 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood ...                   
-01/02/2012 10:20 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   
-01/02/2012 10:30 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls;  ...                   
-01/02/2012 10:30 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   
-01/02/2012 10:30 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS;  ...                   
-01/02/2012 10:30 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   
-01/02/2012 10:30 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood; ...                   
-01/02/2012 10:30 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   
-01/02/2012 10:40 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls; ...                   
+```
+01/02/2012 10:20 UTC; Australia; #tigerblood; #tilltheworldends; #winning; ...
+01/02/2012 10:20 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...
+01/02/2012 10:20 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS ...
+01/02/2012 10:20 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends ...
+01/02/2012 10:20 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood ...
+01/02/2012 10:20 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...
+01/02/2012 10:30 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls;  ...
+01/02/2012 10:30 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...
+01/02/2012 10:30 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS;  ...
+01/02/2012 10:30 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...
+01/02/2012 10:30 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood; ...
+01/02/2012 10:30 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...
+01/02/2012 10:40 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls; ...
 ...                 `
 ```
 
 Votre fichier csv devra contenir au minimum 10 000 transactions.
 
-### Phase 1 : Extraction des motifs fréquents (05/03 → 12/03)
+### Phase 1 : Extraction des motifs fréquents
 
 Dans le cours de FED, vous avez vu que la découverte des motifs
 fréquents (c'est-à-dire des ensembles d'items apparaissant ensemble avec
@@ -102,10 +102,10 @@ d'items (codés par des entiers) séparés par des espaces. Ci-dessous le
 fichier exemple `test.trans` contenant trois transactions dans ce format
 :
 
-```                   
-1 2 3 4                   
-2 3                   
-3 4 5                 
+```
+1 2 3 4
+2 3
+3 4 5
 ```
 
 L'exécution de la commande `./apriori test.trans 2 test.out` calcul tous
@@ -199,51 +199,14 @@ nouvelles.
 
 **Nettoyage du fichier de données :**
  La méthode de nettoyage utilisée est relativement simple mais permet
-d'éliminer la redondance introduite par les différents synonymes d'un
-même terme. Prenons comme exemple la transaction suivante :
+d'éliminer la redondance introduite par les les mots de liaison. En effet, 
+les mots comme les articles, pronoms, etc... sont peu porteurs de sens pour 
+l'analyse Des régles d'association. 
 
-`World, #libye, Libye, #Kadafi, Libya, Christchurch, Gaddafi, Justin Bieber, Kadhafi`
-
-Elle contient des synonymes comme par exemple les termes
-`#Kadafi, Gaddafi, Kadhafi`. Ils ont tous les trois le même sens et
-désignent la personne de [Mouammar
-Kadhafi](http://fr.wikipedia.org/wiki/Mouammar_Kadhafi). De même les
-termes `#libye, Libye, Libya` désignent le même pays, la
-[Libye](http://fr.wikipedia.org/wiki/Libye). Pour réduire la redondance,
-il suffit de remplacer chacun de ces différents synonymes par un seul et
-même terme. Par exemple les termes `#Kadafi, Gaddafi, Kadhafi` seront
-remplacés par `Kadhafi` et les termes `#libye, Libye, Libya` seront
-remplacés par `Libye`. La transaction précédente deviendra :
-
-`World, Libye, Libye, Kadhafi, Libye, Christchurch, Kadhafi, Justin Bieber, Kadhafi`
-
-Certains items (Libye et Kadhafi) sont dupliqués, une transaction étant
-un ensemble (au sens mathématique) elle sera simplifiée comme suit :
-
-`World, Libye, Kadhafi, Christchurch, Justin Bieber`
-
-L'utilisation de cette méthode de nettoyage nécessite d'être capable de
-détecter les synonymes. Pour réaliser cette tache, nous allons créer
-manuellement un dictionnaire des synonymes. Ce dictionnaire est un
-fichier texte contenant sur chaque ligne un terme (encadré par des
-guillemets) et le synonyme par lequel il devra être remplacé (lui aussi
-encadré par des guillemets). En reprenant la transaction précédente, le
-fichier des synonymes `trends.syno` associé serait le suivant :
-
-`                   "#Kadafi"="Kadhafi"                   "Gaddafi"="Kadhafi"                   "#libye"="Libye"                                   "Libya"="Libye"                 `
-
-On remarque que seul les termes devant être substitués (ayant un
-synonyme) apparaissent dans ce fichier. Il faudra faire attention que le
-synonyme choisi pour la substitution (terme à droite du '=') ne soit pas
-présent dans la liste des termes à substituer (l'un des termes à gauche
-d'un '=').
-
-La création d'un tel fichier étant une tache longue et fastidieuse, la
-page web permettant une construction collaborative de ce dictionnaire
-sera disponible à partir du 26/03 à l'adresse suivante :
-[http://allegro/\~nedjar/synonyme/](http://allegro/~nedjar/synonyme/).
-Votre note pour cette phase dépendra en partie du nombre et de la
-qualité des synonymes que vous trouverez.
+Dans cette étape, vous devez tout d'abord établir un dictionnaire des mots sans
+valeur sémantique que vous appellerez `motinutiles.txt`. À partir de ce fichier, 
+vous devrez reprendre votre fichier d'origine pour éliminer des transactions tous 
+les mots sans valeur.
 
 **Nettoyage de l'ensemble des règles d'association :**\
  Malgré l'amélioration de la qualité des règles qu'a apporté le
@@ -279,11 +242,9 @@ afficher vos règles et les manipuler relativement simplement.
 
 **Le travail à réaliser durant cette phase est le suivant :**
 
--   En utilisant les règles d'association exactes et vos connaissance
-    des données remplir le dictionnaire des synonymes (au moins 10
-    synonymes validés par personne).
+-   Ecrire le dictionnaire `motinutiles.txt`.
 -   Écrire le programme de nettoyage du fichier d'entrée à partir d'un
-    dictionnaire des synonymes.
+    dictionnaire des mots sans valeur sémantique.
 -   En repartant de votre programme de génération des règles
     d'association de la phase 2, écrire un programme d'élimination des
     règles d'association *non min* et *non max*.
@@ -291,20 +252,12 @@ afficher vos règles et les manipuler relativement simplement.
     sont toujours présente dans votre résultat et si leur confiance n'a
     pas était modifiée.
 
-Votre travail doit être envoyé par mail le 27/03 (pas de retard
-possible).
+Votre travail doit être envoyé par mail le 11/04 (pas de retard possible).
 
-### Phase 4 : Interface de manipulation et de recherche des règles d'association (26/03 → 02/04)
+### Présentation du travail réalisé
 
-Votre travail doit être envoyé par mail le 03/04 (pas de retard
-possible).
-
-### Présentation du travail réalisé (04/04 et 05/04)
-
-Les présentations de vos projets auront lieu le 04/04 en salle machine
+Les présentations de vos projets auront lieu le 11/04 et le 12/04 en salle machine
 selon un planning qui sera affiché avant le lundi 2 Avril. La soutenance
-durera 15/20 minutes par projet. Vous devrez dans un premier temps
+durera 10 minutes par projet. Vous devrez dans un premier temps
 expliquer le travail réalisé puis dans un second temps répondre à des
 questions liées à votre travail et à vos résultats.
-
-* * * * *
