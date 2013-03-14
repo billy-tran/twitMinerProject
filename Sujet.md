@@ -5,59 +5,68 @@ Objectif :
 ----------
 
 Extraire les règles d'association à partir de données extraites de
-Twitter. À chaque instant, Twitter compile les dix sujets les plus
-commentés. Ces sujets sont ce que l'on appelle les tendances (trends).
-Ils sont en quelques sortes un condensé de l'actualité à un instant
-donné.
+Twitter. Cette année, au lieu de ne s'intérésser qu'au *"Trends"*,
+nous allons essayer d'extraire des connaissances directement à partir 
+des tweets venant du monde entier.
 
 Vous pouvez poser vos questions soit par mail à l’adresse
 [sebastien.nedjar@univ-amu.fr](mailto:sebastien.nedjar@univ-amu.fr) en
-faisant figurer [Projet\_BDA] au début du sujet du message, soit
-directement par Twitter (@nedseb) en utilisant le hashtag \#TwitMiner
+faisant figurer [Projet_BDA] au début du sujet du message, soit
+directement par Twitter (@nedseb) en utilisant le hashtag #TwitMiner
 pour que tout le monde puisse bénéficier de la réponse.
 
-À chaque fin de phase (voir ci-dessous pour les dates) vous devrez
+À chaque fin du projet (voir ci-dessous pour les dates) vous devrez
 envoyer une archive au format zip contenant le travail réalisé ainsi
-qu'un fichier nommé "README.txt" expliquant clairement (10 lignes
+qu'un fichier nommé "README.txt" expliquant clairement (10-15 lignes
 environs) ce que vous avez fait ainsi que la procédure à suivre pour
-tester votre travail. Le sujet du mail devra avoir le format suivant :\
- `[Projet_BDA] Rendu phase X : Nom1, Nom2`
+tester votre travail. Le sujet du mail devra avoir le format suivant :
+ `[Projet_BDA] Rendu : Nom1, Nom2`
 
 Travail à réaliser :
 --------------------
 
-### Phase 0 : Récupération des données (23/02 → 05/03)
+### Phase 0 : Récupération des données
 
-Le travail à réaliser durant cette phase consiste se constituer un jeu
-de données qui sera étudié dans les phases suivantes. Les "trends"
-représentent une information agrégée de l'activité sur la plateforme
-Twitter à un instant donné. Pour nous, chaque "Top 10" représentera un
-tuple (aussi appelé transaction) de notre jeu de données. En extrayant
-des règles d'association à partir de ces données, on cherche à
-comprendre quels sont les liens existant entre les différentes tendances
-apparaissant simultanément dans des transactions. L'aspect géographique
-de ces Trends devrait permettre d'observer des comportements propres à
-chaque pays.
+Le travail à réaliser durant cette phase consiste à se constituer un jeu
+de données qui sera étudié dans les phases suivantes. Sur Twitter, les 
+utilisateurs échanges des messages soit pour discuter soit pour échanger 
+des informations. En extrayant des règles d'association à partir de ces données, 
+on cherche à comprendre quels sont les liens entre les mots apparaissant simultanément 
+dans des tweets que l'on aura transformé en transactions. 
 
 **Le travail à réaliser durant cette phase est le suivant** :
 
 -   Créer un compte Twitter et enregistrer une application
 -   Faire un programme (en Java vous pouvez utiliser la bibliothèque
     [Twitter4J](http://twitter4j.org/en/index.html) ) qui se connecte à
-    Twitter et qui récupère toutes les 15 minutes les tendances d'un
-    maximum de lieux. Stocker les résultats dans un fichier au format
+    Twitter et qui récupère tous les tweets sur un sujet choisi. Stocker 
+    les résultats dans un fichier au format
     [CSV](http://fr.wikipedia.org/wiki/Comma-separated_values). Le pays
     et la date pouvant jouer un rôle dans l'analyse, chaque transaction
     devra contenir un champ date et pays. Pour que notre analyse ne
-    tienne pas compte de l'ordre des différentes tendances dans une
+    tienne pas compte de l'ordre des différents mots dans une
     transaction, vous pouvez les trier par ordre alphabétique.
 
 Voici un exemple de ce à quoi votre fichier csv pourrait ressembler :
 
-`                   01/02/2012 10:20 UTC; Australia; #tigerblood; #tilltheworldends; #winning; ...                   01/02/2012 10:20 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   01/02/2012 10:20 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS ...                   01/02/2012 10:20 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends ...                    01/02/2012 10:20 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood ...                   01/02/2012 10:20 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   01/02/2012 10:30 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls;  ...                   01/02/2012 10:30 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   01/02/2012 10:30 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS;  ...                   01/02/2012 10:30 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   01/02/2012 10:30 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood; ...                   01/02/2012 10:30 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   01/02/2012 10:40 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls; ...                   ...                 `
+```                   
+01/02/2012 10:20 UTC; Australia; #tigerblood; #tilltheworldends; #winning; ...                   
+01/02/2012 10:20 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   
+01/02/2012 10:20 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS ...                   
+01/02/2012 10:20 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends ...                    
+01/02/2012 10:20 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood ...                   
+01/02/2012 10:20 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   
+01/02/2012 10:30 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls;  ...                   
+01/02/2012 10:30 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   
+01/02/2012 10:30 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS;  ...                   
+01/02/2012 10:30 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   
+01/02/2012 10:30 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood; ...                   
+01/02/2012 10:30 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   
+01/02/2012 10:40 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls; ...                   
+...                 `
+```
 
-Les résultats sont à envoyer par mail avant le 13/03, votre fichier csv
-doit contenir au minimum 5 000 transactions.
+Votre fichier csv devra contenir au minimum 10 000 transactions.
 
 ### Phase 1 : Extraction des motifs fréquents (05/03 → 12/03)
 
@@ -84,8 +93,8 @@ jeu de données extrait précédemment.
     D)/Supp(∅, D)
 
 L'implémentation de l'algorithme Apriori choisie
-([apriori.tar.bz2](http://allegro/~nedjar/apriori.tar.bz2)) utilise un
-format de fichier de données différent du notre. Une partie du travail à
+([apriori.tar.bz2](https://raw.github.com/IUTInfoAix/twitMiner/master/apriori.tar.bz2)) 
+utilise un format de fichier de données différent du notre. Une partie du travail à
 réaliser consistera donc à écrire un programme de conversion entre les
 deux formats. L'algorithme prend en entrée un fichier texte où chaque
 ligne constitue une transaction. Chaque transaction est constituée
@@ -93,15 +102,25 @@ d'items (codés par des entiers) séparés par des espaces. Ci-dessous le
 fichier exemple `test.trans` contenant trois transactions dans ce format
 :
 
-`                   1 2 3 4                   2 3                   3 4 5                 `
+```                   
+1 2 3 4                   
+2 3                   
+3 4 5                 
+```
 
 L'exécution de la commande `./apriori test.trans 2 test.out` calcul tous
 les motifs fréquents du fichier `test.trans` ayant un support supérieur
 à 2 (fréquence supérieure à 2/3) et écrit le résultat dans le fichier
 `test.out`. Le contenu de ce fichier est le suivant :
 
-`                   (3)                   2 (2)                   3 (3)                   4 (2)                   2 3 (2)                   3 4 (2)                 `
-
+```
+(3)
+2 (2)
+3 (3)
+4 (2)
+2 3 (2)
+3 4 (2)                 `
+```
 La première ligne de ce fichier indique que le motif vide (∅) a un
 support de 3. C'est à dire qu'il y a 3 lignes du fichier `test.trans`
 qui contiennent ce motif. Les autres lignes correspondent aux autres
@@ -110,7 +129,7 @@ motifs fréquents, elle se lisent de la même façon.
 **Le travail à réaliser durant cette phase est le suivant :**
 
 -   Télécharger l'archive suivante
-    [http://allegro/\~nedjar/apriori.tar.bz2](http://allegro/~nedjar/apriori.tar.bz2).
+    https://raw.github.com/IUTInfoAix/twitMiner/master/apriori.tar.bz2.
     La décompresser et importer le contenu dans un nouveau projet sous
     Eclipse.
 -   Faire un programme permettant de transformer votre fichier "csv" en
@@ -122,12 +141,11 @@ motifs fréquents, elle se lisent de la même façon.
     résultats), calculer l'ensemble des motifs fréquents de votre jeu de
     données.
 
-Les résultats sont à envoyer par mail avant le 13/03. L'archive devra
-contenir les sources des programmes de transcodage et le fichier
+Vous devrez rendre les sources des programmes de transcodage et le fichier
 contenant les motifs fréquents. Ce fichier résultat devra faire moins de
 1Mo (s'il fait plus tronquez le).
 
-### Phase 2 : Extraction des règles d'association (12/03 → 19/03)
+### Phase 2 : Extraction des règles d'association
 
 L'ensemble des motifs fréquents étant maintenant calculable, il reste à
 écrire le programme extrayant les règles d'association à partir du
@@ -161,15 +179,14 @@ génération est le suivant :
     règles d'association ayant une confiance supérieure au seuil donné
     par l'utilisateur (MinConf).
 -   Sélectionner 10 règles d'association qui semblent pertinentes et
-    essayer de les expliquer (2 phrases max) par rapport aux événements
-    s'étant produits dans l'actualité durant la période de récupération
-    des données.
+    essayer de les expliquer (2 phrases max) par rapport au contexte dans 
+    lequel les données ont été récupérée.
 
-Les résultats sont à envoyer par mail le 20/03. L'archive devra contenir
+Les résultats sont à envoyer par mail le 11/04. L'archive devra contenir
 les sources des programmes d'extraction des règles d'association. Votre
 fichier résultat devra faire moins de 1Mo (s'il fait plus tronquez le).
 
-### Phase 3 : Nettoyage des données (19/03 → 26/03)
+### Phase 3 : Nettoyage des données 
 
 Lors de la phase précédente, vous avez généré un très grand nombre de
 règles d'association. Certaines d'entre elles étaient pertinente
@@ -180,7 +197,7 @@ faire le nettoyage de l'ensemble des règles d'association pour éliminer
 une partie des règles n'apportant peu (ou pas du tout) de connaissances
 nouvelles.
 
-**Nettoyage du fichier de données :**\
+**Nettoyage du fichier de données :**
  La méthode de nettoyage utilisée est relativement simple mais permet
 d'éliminer la redondance introduite par les différents synonymes d'un
 même terme. Prenons comme exemple la transaction suivante :
