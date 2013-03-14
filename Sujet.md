@@ -1,0 +1,293 @@
+Projet BDA : TwitMiner
+======================
+
+Objectif :
+----------
+
+Extraire les règles d'association à partir de données extraites de
+Twitter. À chaque instant, Twitter compile les dix sujets les plus
+commentés. Ces sujets sont ce que l'on appelle les tendances (trends).
+Ils sont en quelques sortes un condensé de l'actualité à un instant
+donné.
+
+Vous pouvez poser vos questions soit par mail à l’adresse
+[sebastien.nedjar@univ-amu.fr](mailto:sebastien.nedjar@univ-amu.fr) en
+faisant figurer [Projet\_BDA] au début du sujet du message, soit
+directement par Twitter (@nedseb) en utilisant le hashtag \#TwitMiner
+pour que tout le monde puisse bénéficier de la réponse.
+
+À chaque fin de phase (voir ci-dessous pour les dates) vous devrez
+envoyer une archive au format zip contenant le travail réalisé ainsi
+qu'un fichier nommé "README.txt" expliquant clairement (10 lignes
+environs) ce que vous avez fait ainsi que la procédure à suivre pour
+tester votre travail. Le sujet du mail devra avoir le format suivant :\
+ `[Projet_BDA] Rendu phase X : Nom1, Nom2`
+
+Travail à réaliser :
+--------------------
+
+### Phase 0 : Récupération des données (23/02 → 05/03)
+
+Le travail à réaliser durant cette phase consiste se constituer un jeu
+de données qui sera étudié dans les phases suivantes. Les "trends"
+représentent une information agrégée de l'activité sur la plateforme
+Twitter à un instant donné. Pour nous, chaque "Top 10" représentera un
+tuple (aussi appelé transaction) de notre jeu de données. En extrayant
+des règles d'association à partir de ces données, on cherche à
+comprendre quels sont les liens existant entre les différentes tendances
+apparaissant simultanément dans des transactions. L'aspect géographique
+de ces Trends devrait permettre d'observer des comportements propres à
+chaque pays.
+
+**Le travail à réaliser durant cette phase est le suivant** :
+
+-   Créer un compte Twitter et enregistrer une application
+-   Faire un programme (en Java vous pouvez utiliser la bibliothèque
+    [Twitter4J](http://twitter4j.org/en/index.html) ) qui se connecte à
+    Twitter et qui récupère toutes les 15 minutes les tendances d'un
+    maximum de lieux. Stocker les résultats dans un fichier au format
+    [CSV](http://fr.wikipedia.org/wiki/Comma-separated_values). Le pays
+    et la date pouvant jouer un rôle dans l'analyse, chaque transaction
+    devra contenir un champ date et pays. Pour que notre analyse ne
+    tienne pas compte de l'ordre des différentes tendances dans une
+    transaction, vous pouvez les trier par ordre alphabétique.
+
+Voici un exemple de ce à quoi votre fichier csv pourrait ressembler :
+
+`                   01/02/2012 10:20 UTC; Australia; #tigerblood; #tilltheworldends; #winning; ...                   01/02/2012 10:20 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   01/02/2012 10:20 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS ...                   01/02/2012 10:20 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends ...                    01/02/2012 10:20 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood ...                   01/02/2012 10:20 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   01/02/2012 10:30 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls;  ...                   01/02/2012 10:30 UTC; Monde; #blackpeoplemovies; #tigerblood; #tilltheworldends;  ...                   01/02/2012 10:30 UTC; France; #ff; #plusbelleladroite; #vasescommunicants; 3DS;  ...                   01/02/2012 10:30 UTC; Canada; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   01/02/2012 10:30 UTC; United Kingdom; #barnsley; #blackpeoplemovies; #tigerblood; ...                   01/02/2012 10:30 UTC; United States; #blackpeoplemovies; #tigerblood; #tilltheworldends; ...                   01/02/2012 10:40 UTC; Australia; #tigerblood; #tilltheworldends; #winning; Bear Grylls; ...                   ...                 `
+
+Les résultats sont à envoyer par mail avant le 13/03, votre fichier csv
+doit contenir au minimum 5 000 transactions.
+
+### Phase 1 : Extraction des motifs fréquents (05/03 → 12/03)
+
+Dans le cours de FED, vous avez vu que la découverte des motifs
+fréquents (c'est-à-dire des ensembles d'items apparaissant ensemble avec
+une fréquence supérieure à un seuil MinFreq donné par l'utilisateur)
+constitue l'étape principale de l’extraction de règles d’association.
+L'objectif de cette phase est d'utiliser une implémentation de
+l'algorithme Apriori pour calculer l'ensemble des motifs fréquents du
+jeu de données extrait précédemment.
+
+**Rappel des définitions de base:**
+
+-   I = {i1, i2, …, im} l’ensemble des items apparaissant dans la base
+    de données non structurée (ou base de données transactionnelles) D.
+-   Un motif M est un sous-ensemble d'items : M ⊆ I.
+-   Une transaction T ∈ D est un motif appartenant à D (une ligne de D).
+-   Support d'un d'un motif X : \
+     Supp(X, D) = Nombre de transaction de D contenant X = |{T ∈ D tel
+    que X ⊆ T }|
+-   Fréquence d'un d'un motif X :\
+     Freq(X, D) = (Nombre de transaction de D contenant X) / (Nombre
+    transaction de D) = |{T ∈ D tel que X ⊆ T }|/|D| = Supp(X,
+    D)/Supp(∅, D)
+
+L'implémentation de l'algorithme Apriori choisie
+([apriori.tar.bz2](http://allegro/~nedjar/apriori.tar.bz2)) utilise un
+format de fichier de données différent du notre. Une partie du travail à
+réaliser consistera donc à écrire un programme de conversion entre les
+deux formats. L'algorithme prend en entrée un fichier texte où chaque
+ligne constitue une transaction. Chaque transaction est constituée
+d'items (codés par des entiers) séparés par des espaces. Ci-dessous le
+fichier exemple `test.trans` contenant trois transactions dans ce format
+:
+
+`                   1 2 3 4                   2 3                   3 4 5                 `
+
+L'exécution de la commande `./apriori test.trans 2 test.out` calcul tous
+les motifs fréquents du fichier `test.trans` ayant un support supérieur
+à 2 (fréquence supérieure à 2/3) et écrit le résultat dans le fichier
+`test.out`. Le contenu de ce fichier est le suivant :
+
+`                   (3)                   2 (2)                   3 (3)                   4 (2)                   2 3 (2)                   3 4 (2)                 `
+
+La première ligne de ce fichier indique que le motif vide (∅) a un
+support de 3. C'est à dire qu'il y a 3 lignes du fichier `test.trans`
+qui contiennent ce motif. Les autres lignes correspondent aux autres
+motifs fréquents, elle se lisent de la même façon.
+
+**Le travail à réaliser durant cette phase est le suivant :**
+
+-   Télécharger l'archive suivante
+    [http://allegro/\~nedjar/apriori.tar.bz2](http://allegro/~nedjar/apriori.tar.bz2).
+    La décompresser et importer le contenu dans un nouveau projet sous
+    Eclipse.
+-   Faire un programme permettant de transformer votre fichier "csv" en
+    un fichier "trans".
+-   Faire un programme permettant de transformer le fichier "trans" ou
+    le fichier "out" en un fichier "csv".
+-   En veillant à choisir un seuil pertinent (ni trop haut sous peine
+    d'avoir aucun résultat, ni trop bas sous peine d'avoir trop de
+    résultats), calculer l'ensemble des motifs fréquents de votre jeu de
+    données.
+
+Les résultats sont à envoyer par mail avant le 13/03. L'archive devra
+contenir les sources des programmes de transcodage et le fichier
+contenant les motifs fréquents. Ce fichier résultat devra faire moins de
+1Mo (s'il fait plus tronquez le).
+
+### Phase 2 : Extraction des règles d'association (12/03 → 19/03)
+
+L'ensemble des motifs fréquents étant maintenant calculable, il reste à
+écrire le programme extrayant les règles d'association à partir du
+résultat de l'algorithme Apriori.
+
+**Rappel des définitions de base:**
+
+-   Une règle d’association X → Y où : X ⊆ I, Y ⊆ I et X ∩ Y = ∅.
+-   Fréquence d'une règle d’association : Freq(X → Y, D) = Freq(X ∪ Y,
+    D)
+-   Confiance d'une règle d’association : Conf(X → Y, D) = Freq(X ∪ Y,
+    D)/Freq(X, D)
+
+La fréquence et la confiance sont utilisées pour identifier les règles «
+intéressantes ». L'utilisateur doit définir deux seuils MinFreq et
+MinConf à partir desquels une règle X → Y sera considérée comme «
+intéressantes » si et seulement si Freq(X → Y, D) ≥ MinFreq et Conf(X →
+Y, D) ≥ MinConf. La génération des règles se fait donc à partir des
+motifs (itemsets) fréquents (précédemment généré). Le principe de cette
+génération est le suivant :
+
+1.  Pour chaque itemset (motif) fréquent Y, trouver tous les
+    sous-ensembles non vides de Y
+2.  Pour chacun de ces sous-ensemble X, produire la règle X → (Y − X) si
+    Conf(X → (Y − X), D) ≥ MinConf
+
+**Le travail à réaliser durant cette phase est le suivant :**
+
+-   Écrire le programme prenant en entrée le fichier "out" (le résultat
+    d'Apriori) et donnant en sortie un fichier contenant toutes les
+    règles d'association ayant une confiance supérieure au seuil donné
+    par l'utilisateur (MinConf).
+-   Sélectionner 10 règles d'association qui semblent pertinentes et
+    essayer de les expliquer (2 phrases max) par rapport aux événements
+    s'étant produits dans l'actualité durant la période de récupération
+    des données.
+
+Les résultats sont à envoyer par mail le 20/03. L'archive devra contenir
+les sources des programmes d'extraction des règles d'association. Votre
+fichier résultat devra faire moins de 1Mo (s'il fait plus tronquez le).
+
+### Phase 3 : Nettoyage des données (19/03 → 26/03)
+
+Lors de la phase précédente, vous avez généré un très grand nombre de
+règles d'association. Certaines d'entre elles étaient pertinente
+d'autres apportaient peu d'informations. L'objectif de cette phase est
+double, tout d'abord faire un nettoyage du fichier de données afin d'en
+améliorer sa qualité et ainsi obtenir des résultats plus précis. Puis
+faire le nettoyage de l'ensemble des règles d'association pour éliminer
+une partie des règles n'apportant peu (ou pas du tout) de connaissances
+nouvelles.
+
+**Nettoyage du fichier de données :**\
+ La méthode de nettoyage utilisée est relativement simple mais permet
+d'éliminer la redondance introduite par les différents synonymes d'un
+même terme. Prenons comme exemple la transaction suivante :
+
+`World, #libye, Libye, #Kadafi, Libya, Christchurch, Gaddafi, Justin Bieber, Kadhafi`
+
+Elle contient des synonymes comme par exemple les termes
+`#Kadafi, Gaddafi, Kadhafi`. Ils ont tous les trois le même sens et
+désignent la personne de [Mouammar
+Kadhafi](http://fr.wikipedia.org/wiki/Mouammar_Kadhafi). De même les
+termes `#libye, Libye, Libya` désignent le même pays, la
+[Libye](http://fr.wikipedia.org/wiki/Libye). Pour réduire la redondance,
+il suffit de remplacer chacun de ces différents synonymes par un seul et
+même terme. Par exemple les termes `#Kadafi, Gaddafi, Kadhafi` seront
+remplacés par `Kadhafi` et les termes `#libye, Libye, Libya` seront
+remplacés par `Libye`. La transaction précédente deviendra :
+
+`World, Libye, Libye, Kadhafi, Libye, Christchurch, Kadhafi, Justin Bieber, Kadhafi`
+
+Certains items (Libye et Kadhafi) sont dupliqués, une transaction étant
+un ensemble (au sens mathématique) elle sera simplifiée comme suit :
+
+`World, Libye, Kadhafi, Christchurch, Justin Bieber`
+
+L'utilisation de cette méthode de nettoyage nécessite d'être capable de
+détecter les synonymes. Pour réaliser cette tache, nous allons créer
+manuellement un dictionnaire des synonymes. Ce dictionnaire est un
+fichier texte contenant sur chaque ligne un terme (encadré par des
+guillemets) et le synonyme par lequel il devra être remplacé (lui aussi
+encadré par des guillemets). En reprenant la transaction précédente, le
+fichier des synonymes `trends.syno` associé serait le suivant :
+
+`                   "#Kadafi"="Kadhafi"                   "Gaddafi"="Kadhafi"                   "#libye"="Libye"                                   "Libya"="Libye"                 `
+
+On remarque que seul les termes devant être substitués (ayant un
+synonyme) apparaissent dans ce fichier. Il faudra faire attention que le
+synonyme choisi pour la substitution (terme à droite du '=') ne soit pas
+présent dans la liste des termes à substituer (l'un des termes à gauche
+d'un '=').
+
+La création d'un tel fichier étant une tache longue et fastidieuse, la
+page web permettant une construction collaborative de ce dictionnaire
+sera disponible à partir du 26/03 à l'adresse suivante :
+[http://allegro/\~nedjar/synonyme/](http://allegro/~nedjar/synonyme/).
+Votre note pour cette phase dépendra en partie du nombre et de la
+qualité des synonymes que vous trouverez.
+
+**Nettoyage de l'ensemble des règles d'association :**\
+ Malgré l'amélioration de la qualité des règles qu'a apporté le
+nettoyage du fichier de données, il reste encore beaucoup de règles qui
+apportent peu d'information nouvelle à l'utilisateur. Par exemple
+supposons que nous rencontrions les règles AB → CDEF et AB → CD avec
+Freq(AB → CDEF) = Freq(AB → CD) (cela implique aussi que Conf(AB → CDEF)
+= Conf(AB → CD) ). La seconde règle ne nous apprend rien de plus (même
+moins) que la première. Les règles de ce type, nommées règles *non max*,
+peuvent être supprimées du résultat final sans perte d'information.
+
+Il existe un second type de règle que l'on peut éliminer, ce sont les
+règles dites *non min*. Cette fois ci l'objectif est de garder
+prioritairement les règles ayant la plus petite partie gauche. Par
+exemple si les règles AB → CD et A → BCD ont la même confiance (ce qui
+implique Freq(AB) = Freq(A)) alors elles sont porteuses de la même
+sémantique mais la seconde est plus simple à interpréter. Ainsi les
+règles *non min* peuvent être supprimer sans perte d'information.
+
+**Résumé des règles de nettoyage :**\
+ Soit X et Y deux motifs fréquents tels que X ⊂ Y et X → (Y − X) une RA
+valide (conf(X → (Y − X)) ≥ minConf)
+
+-   Si il existe Y' ⊂ Y tel que X ⊂ Y' et Freq(Y') = Freq(Y) \
+     alors X → (Y' − X) est *non max*.
+-   Si il existe X' ⊂ X tel que Freq(X') = Freq(X) \
+     alors X → (Y − X) est *non min*.
+
+Les règles restantes sont dites *min-max*, ce sont celles qui sont
+porteuses de la plus forte sémantique. Pour les étudiants qui le
+souhaite, je peux vous envoyer un petit script *php* (shame on me) pour
+afficher vos règles et les manipuler relativement simplement.
+
+**Le travail à réaliser durant cette phase est le suivant :**
+
+-   En utilisant les règles d'association exactes et vos connaissance
+    des données remplir le dictionnaire des synonymes (au moins 10
+    synonymes validés par personne).
+-   Écrire le programme de nettoyage du fichier d'entrée à partir d'un
+    dictionnaire des synonymes.
+-   En repartant de votre programme de génération des règles
+    d'association de la phase 2, écrire un programme d'élimination des
+    règles d'association *non min* et *non max*.
+-   Vérifier si les 10 règles sélectionnées lors de la phase précédente
+    sont toujours présente dans votre résultat et si leur confiance n'a
+    pas était modifiée.
+
+Votre travail doit être envoyé par mail le 27/03 (pas de retard
+possible).
+
+### Phase 4 : Interface de manipulation et de recherche des règles d'association (26/03 → 02/04)
+
+Votre travail doit être envoyé par mail le 03/04 (pas de retard
+possible).
+
+### Présentation du travail réalisé (04/04 et 05/04)
+
+Les présentations de vos projets auront lieu le 04/04 en salle machine
+selon un planning qui sera affiché avant le lundi 2 Avril. La soutenance
+durera 15/20 minutes par projet. Vous devrez dans un premier temps
+expliquer le travail réalisé puis dans un second temps répondre à des
+questions liées à votre travail et à vos résultats.
+
+* * * * *
