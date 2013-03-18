@@ -15,9 +15,8 @@ faisant figurer [Projet_BDA] au début du sujet du message, soit
 directement par Twitter (@nedseb) en utilisant le hashtag #TwitMiner
 pour que tout le monde puisse bénéficier de la réponse.
 
-À chaque fin du projet (voir ci-dessous pour les dates) vous devrez
-envoyer pour chaque phase une archive au format zip contenant le travail réalisé ainsi
-qu'un fichier nommé "README.txt" expliquant clairement (10-15 lignes
+À la fin du projet (voir ci-dessous pour les dates) vous devrez envoyer pour chaque phase une archive au format 
+zip contenant le travail réalisé ainsi qu'un fichier nommé "README.txt" expliquant clairement (10 lignes
 environs) ce que vous avez fait ainsi que la procédure à suivre pour
 tester votre travail. Le sujet du mail devra avoir le format suivant :
  `[Projet_BDA] Rendu Phase X: Nom1, Nom2`
@@ -32,7 +31,7 @@ de données qui sera étudié dans les phases suivantes. Sur Twitter, les
 utilisateurs échanges des messages soit pour discuter soit pour échanger 
 des informations. En extrayant des règles d'association à partir de ces données, 
 on cherche à comprendre quels sont les liens entre les mots apparaissant simultanément 
-dans des tweets que l'on aura transformé en transactions. 
+dans des tweets que l'on aura transformé en transactions ou lignes de la base. 
 
 **Le travail à réaliser durant cette phase est le suivant** :
 
@@ -74,7 +73,7 @@ Votre fichier csv devra contenir au minimum 10 000 transactions.
 
 ### Phase 1 : Extraction des motifs fréquents
 
-Dans le cours de FED, vous avez vu que la découverte des motifs
+Dans le cours de BDA, vous avez vu que la découverte des motifs
 fréquents (c'est-à-dire des ensembles d'items apparaissant ensemble avec
 une fréquence supérieure à un seuil MinFreq donné par l'utilisateur)
 constitue l'étape principale de l’extraction de règles d’association.
@@ -88,13 +87,11 @@ jeu de données extrait précédemment.
     de données non structurée (ou base de données transactionnelles) D.
 -   Un motif M est un sous-ensemble d'items : M ⊆ I.
 -   Une transaction T ∈ D est un motif appartenant à D (une ligne de D).
--   Support d'un d'un motif X : \
-     Supp(X, D) = Nombre de transaction de D contenant X = |{T ∈ D tel
+-   Support d'un d'un motif X :
+    Supp(X, D) = Nombre de transaction de D contenant X = |{T ∈ D tel
     que X ⊆ T }|
--   Fréquence d'un d'un motif X :\
-     Freq(X, D) = (Nombre de transaction de D contenant X) / (Nombre
-    transaction de D) = |{T ∈ D tel que X ⊆ T }|/|D| = Supp(X,
-    D)/Supp(∅, D)
+-   Fréquence d'un d'un motif X :
+     Freq(X, D) = (Nombre de transaction de D contenant X) / (Nombre transaction de D) = |{T ∈ D tel que X ⊆ T }|/|D|
 
 L'implémentation de l'algorithme Apriori choisie
 ([apriori.tar.bz2](https://raw.github.com/IUTInfoAix/twitMiner/master/apriori.tar.bz2)) 
@@ -158,10 +155,8 @@ résultat de l'algorithme Apriori.
 **Rappel des définitions de base:**
 
 -   Une règle d’association X → Y où : X ⊆ I, Y ⊆ I et X ∩ Y = ∅.
--   Fréquence d'une règle d’association : Freq(X → Y, D) = Freq(X ∪ Y,
-    D)
--   Confiance d'une règle d’association : Conf(X → Y, D) = Freq(X ∪ Y,
-    D)/Freq(X, D)
+-   Fréquence d'une règle d’association : Freq(X → Y, D) = Freq(X ∪ Y, D)
+-   Confiance d'une règle d’association : Conf(X → Y, D) = Freq(X ∪ Y, D)/Freq(X, D)
 
 La fréquence et la confiance sont utilisées pour identifier les règles «
 intéressantes ». L'utilisateur doit définir deux seuils MinFreq et
@@ -172,7 +167,7 @@ motifs (itemsets) fréquents (précédemment généré). Le principe de cette
 génération est le suivant :
 
 1.  Pour chaque itemset (motif) fréquent Y, trouver tous les
-    sous-ensembles non vides de Y
+    sous-ensembles X non vides de Y
 2.  Pour chacun de ces sous-ensemble X, produire la règle X → (Y − X) si
     Conf(X → (Y − X), D) ≥ MinConf
 
@@ -211,38 +206,12 @@ Dans cette étape, vous devez tout d'abord établir un dictionnaire des mots san
 valeur sémantique que vous appellerez `motinutiles.txt`. À partir de ce fichier, 
 vous devrez reprendre votre fichier d'origine pour éliminer des transactions tous 
 les mots sans valeur.
-
-**Nettoyage de l'ensemble des règles d'association :**
- Malgré l'amélioration de la qualité des règles qu'a apporté le
-nettoyage du fichier de données, il reste encore beaucoup de règles qui
-apportent peu d'information nouvelle à l'utilisateur. Par exemple
-supposons que nous rencontrions les règles AB → CDEF et AB → CD avec
-Freq(AB → CDEF) = Freq(AB → CD) (cela implique aussi que Conf(AB → CDEF)
-= Conf(AB → CD) ). La seconde règle ne nous apprend rien de plus (même
-moins) que la première. Les règles de ce type, nommées règles *non max*,
-peuvent être supprimées du résultat final sans perte d'information.
-
-Il existe un second type de règle que l'on peut éliminer, ce sont les
-règles dites *non min*. Cette fois ci l'objectif est de garder
-prioritairement les règles ayant la plus petite partie gauche. Par
-exemple si les règles AB → CD et A → BCD ont la même confiance (ce qui
-implique Freq(AB) = Freq(A)) alors elles sont porteuses de la même
-sémantique mais la seconde est plus simple à interpréter. Ainsi les
-règles *non min* peuvent être supprimer sans perte d'information.
-
-**Résumé des règles de nettoyage :**
- Soit X et Y deux motifs fréquents tels que X ⊂ Y et X → (Y − X) une RA
-valide (conf(X → (Y − X)) ≥ minConf)
-
--   Si il existe Y' ⊂ Y tel que X ⊂ Y' et Freq(Y') = Freq(Y) \
-     alors X → (Y' − X) est *non max*.
--   Si il existe X' ⊂ X tel que Freq(X') = Freq(X) \
-     alors X → (Y − X) est *non min*.
-
-Les règles restantes sont dites *min-max*, ce sont celles qui sont
-porteuses de la plus forte sémantique.
+ 
 
 **Recherche des K-meilleurs règles avec le lift :**
+Malgré l'amélioration de la qualité des règles qu'a apporté le nettoyage du fichier de données, 
+il reste encore beaucoup de règles qui apportent peu d'information nouvelle à l'utilisateur. 
+
 En plus de la mesure de la fréquence et de la confiance, vous avez vu en cours qu'on pouvait utiliser le *Lift* pour 
 trier les règles. Pour rappel, voici les formules de calcul de cette mesure : 
 - Lift(X→Y) = Conf (X→Y) / Freq(Y) 
@@ -258,9 +227,6 @@ Si Lift(X→Y) > 1 Alors la corrélation entre X et Y est positive et  indique d
 -   Écrire le dictionnaire `motinutiles.txt`.
 -   Écrire le programme de nettoyage du fichier d'entrée à partir d'un
     dictionnaire des mots sans valeur sémantique.
--   En repartant de votre programme de génération des règles
-    d'association de la phase 2, écrire un programme d'élimination des
-    règles d'association *non min* et *non max*.
 -   Sélectionner les 10 meilleures règles vis à vis du *Lift*.
 
 Votre travail doit être envoyé par mail le 11/04 (pas de retard possible).
