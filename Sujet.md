@@ -51,23 +51,23 @@ dans des tweets que l'on aura transformé en transactions ou lignes de la base.
 Voici un exemple de ce à quoi votre fichier csv pourrait ressembler :
 
 ```
-Mon Mar 18 16:16:59 CET 2013";"@FritzingOrg";""How";"is";"the";"digital";"age";"influencing";"our";"daily";"lifes?";"http://t.co/fbmg6ephEp"
-Mon Mar 18 16:17:03 CET 2013";"@benpro82";""RT";"@mikko:";"Congratulations";"to";"http://t.co/9mU6xf4DNC";"for";"hitting";"double";"digits!#highscore"
-Mon Mar 18 16:18:51 CET 2013";"@arduino";""RT";"@tinkerguymod:";"As";"a";"kid";"I";"couldn't";"afford";"equipment";"I";"needed,";"now";"I";"share";"what";"I";"have";"&";"teach";"what";"I";"know.";"";"@make";"@arkmod";"#Tinkerfest"
-Mon Mar 18 16:19:51 CET 2013";"@arduino";""RT";"@curiousoctopus:";"Every";"hacker’s";"and";"maker’s";"dream:";"“@DomusWeb:";"Ivrea,";"a";"visit";"to";"the";"production";"facilities";"of";"the";"@Arduino";"platform";"h";"..."
-Mon Mar 18 16:20:22 CET 2013";"@arduino";""RT";"@dcuartielles:";"some";"more";"examples";"from";"the";"@Arduino";"Castilla";"experiment:";"https://t.co/eXMGiy0RRh"
-Mon Mar 18 16:20:35 CET 2013";"@Xavier_Combelle";""RT";"@el_agar:";"Les";"Enfoirés,";"cette";"étrange";"émission";"dans";"laquelle";"des";"millionnaires";"demandent";"aux";"smicards";"de";"donner";"aux";"RMIstes."
-Mon Mar 18 16:21:23 CET 2013";"@martinfowler";""UK";"GDS";"Service";"Design";"Manual,";"well";"worth";"reading";"for";"anyone";"doing";"services";"on";"the";"internet";"http://t.co/UIZfhsijLT"
-Mon Mar 18 16:26:41 CET 2013";"@ErlangInfo";""RT";"@viktorklang:";"Question";"for";"Functional";"Programmers:";"When";"you";"write";"distributed";"software,";"what";"distribution";"abstraction/API";"do";"you";"pref";"..."
-Mon Mar 18 16:26:58 CET 2013";"@ErlangInfo";""RT";"@Aggress:";"We're";"hiring";"for";"a";"new";"EMEA";"CSE";"#Basho";"#Riak";"#DevOps";"http://t.co/FEsYMVGNvl"
-Mon Mar 18 16:27:42 CET 2013";"@ErlangInfo";""RT";"@sasajuric:";"manually";"queueing";"messages";"http://t.co/wj2NJdEA0L";"#erlang";"#elixir"
-Mon Mar 18 16:28:51 CET 2013";"@Yurienu";""Days";"since";"last";"known";"Java";"0-day";"exploit";"http://t.co/U5lCoHBDvk";"(via";"@benpro82 via";"@mikko)"
-Mon Mar 18 16:29:00 CET 2013";"@AlgebraFact";""Mathematics";"is";"the";"art";"of";"giving";"the";"same";"name";"to";"different";"things.";"--";"Henri";"Poincaré"
-Mon Mar 18 16:29:35 CET 2013";"@LaughingSquid";""Man";"Ties";"His";"Shoes";"and";"Deals";"Cards";"With";"Terminator-Like";"bebionic3";"Prosthetic";"Hand";"http://t.co/6qLnwTGmue"
-Mon Mar 18 16:29:57 CET 2013";"@efruh";""La";"Chaîne";"YouTube,";"nouvelle";"vitrine";"de";"votre";"Marque";"Employeur";"!";"http://t.co/gBPvWS8TEu"
-Mon Mar 18 16:30:21 CET 2013";"@Xavier_Combelle";""RT";"@koolfy:";"Ok,";"so";"French";"ISP";"#SFR";"is";"#MITM'ing";"google'";"SSL.";"What";"the";"actual";"fuck.";"RT";"@bluetouff:";"wtf";"…";"http://t.co/ElvkPARkrG"
-Mon Mar 18 16:30:44 CET 2013";"@marseilleinnov";""Merci";"pour";"le";"RT!";"@sebfox";"@Merkapt";"@rvignes";"@BenoitBeaucourt"
-Mon Mar 18 16:31:11 CET 2013";"@RubyMotion";""motion-plot,";"a";"nice";"CorePlot";"wrapper";"to";"build";"native";"charts";"in";"your";"apps:";"https://t.co/RTSZDWXvLa";"(by";"@toamit)"
+"Mon Mar 18 16:16:59 CET 2013";"@FritzingOrg";""How";"is";"the";"digital";"age";"influencing";"our";"daily";"lifes?";"http://t.co/fbmg6ephEp"
+"Mon Mar 18 16:17:03 CET 2013";"@benpro82";""RT";"@mikko:";"Congratulations";"to";"http://t.co/9mU6xf4DNC";"for";"hitting";"double";"digits!#highscore"
+"Mon Mar 18 16:18:51 CET 2013";"@arduino";""RT";"@tinkerguymod:";"As";"a";"kid";"I";"couldn't";"afford";"equipment";"I";"needed,";"now";"I";"share";"what";"I";"have";"&";"teach";"what";"I";"know.";"";"@make";"@arkmod";"#Tinkerfest"
+"Mon Mar 18 16:19:51 CET 2013";"@arduino";""RT";"@curiousoctopus:";"Every";"hacker’s";"and";"maker’s";"dream:";"“@DomusWeb:";"Ivrea,";"a";"visit";"to";"the";"production";"facilities";"of";"the";"@Arduino";"platform";"h";"..."
+"Mon Mar 18 16:20:22 CET 2013";"@arduino";""RT";"@dcuartielles:";"some";"more";"examples";"from";"the";"@Arduino";"Castilla";"experiment:";"https://t.co/eXMGiy0RRh"
+"Mon Mar 18 16:20:35 CET 2013";"@Xavier_Combelle";""RT";"@el_agar:";"Les";"Enfoirés,";"cette";"étrange";"émission";"dans";"laquelle";"des";"millionnaires";"demandent";"aux";"smicards";"de";"donner";"aux";"RMIstes."
+"Mon Mar 18 16:21:23 CET 2013";"@martinfowler";""UK";"GDS";"Service";"Design";"Manual,";"well";"worth";"reading";"for";"anyone";"doing";"services";"on";"the";"internet";"http://t.co/UIZfhsijLT"
+"Mon Mar 18 16:26:41 CET 2013";"@ErlangInfo";""RT";"@viktorklang:";"Question";"for";"Functional";"Programmers:";"When";"you";"write";"distributed";"software,";"what";"distribution";"abstraction/API";"do";"you";"pref";"..."
+"Mon Mar 18 16:26:58 CET 2013";"@ErlangInfo";""RT";"@Aggress:";"We're";"hiring";"for";"a";"new";"EMEA";"CSE";"#Basho";"#Riak";"#DevOps";"http://t.co/FEsYMVGNvl"
+"Mon Mar 18 16:27:42 CET 2013";"@ErlangInfo";""RT";"@sasajuric:";"manually";"queueing";"messages";"http://t.co/wj2NJdEA0L";"#erlang";"#elixir"
+"Mon Mar 18 16:28:51 CET 2013";"@Yurienu";""Days";"since";"last";"known";"Java";"0-day";"exploit";"http://t.co/U5lCoHBDvk";"(via";"@benpro82 via";"@mikko)"
+"Mon Mar 18 16:29:00 CET 2013";"@AlgebraFact";""Mathematics";"is";"the";"art";"of";"giving";"the";"same";"name";"to";"different";"things.";"--";"Henri";"Poincaré"
+"Mon Mar 18 16:29:35 CET 2013";"@LaughingSquid";""Man";"Ties";"His";"Shoes";"and";"Deals";"Cards";"With";"Terminator-Like";"bebionic3";"Prosthetic";"Hand";"http://t.co/6qLnwTGmue"
+"Mon Mar 18 16:29:57 CET 2013";"@efruh";""La";"Chaîne";"YouTube,";"nouvelle";"vitrine";"de";"votre";"Marque";"Employeur";"!";"http://t.co/gBPvWS8TEu"
+"Mon Mar 18 16:30:21 CET 2013";"@Xavier_Combelle";""RT";"@koolfy:";"Ok,";"so";"French";"ISP";"#SFR";"is";"#MITM'ing";"google'";"SSL.";"What";"the";"actual";"fuck.";"RT";"@bluetouff:";"wtf";"…";"http://t.co/ElvkPARkrG"
+"Mon Mar 18 16:30:44 CET 2013";"@marseilleinnov";""Merci";"pour";"le";"RT!";"@sebfox";"@Merkapt";"@rvignes";"@BenoitBeaucourt"
+"Mon Mar 18 16:31:11 CET 2013";"@RubyMotion";""motion-plot,";"a";"nice";"CorePlot";"wrapper";"to";"build";"native";"charts";"in";"your";"apps:";"https://t.co/RTSZDWXvLa";"(by";"@toamit)"
 ...                 `
 ```
 
@@ -229,6 +229,7 @@ Si Lift(X→Y) > 1 Alors la corrélation entre X et Y est positive et  indique d
 -   Écrire le dictionnaire `motinutiles.txt`.
 -   Écrire le programme de nettoyage du fichier d'entrée à partir d'un
     dictionnaire des mots sans valeur sémantique.
+-   Pour vous aider à mieux visualiser les items les plus représentés, générez le tag cloud de votre fichier de données en utilisant un service comme (http://tagcrowd.com/).
 -   Sélectionner les 10 meilleures règles vis à vis du *Lift*.
 
 Votre travail doit être envoyé par mail le 11/04 (pas de retard possible).
