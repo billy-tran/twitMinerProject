@@ -183,7 +183,7 @@ génération est le suivant :
     essayer de les expliquer (2 phrases max) par rapport au contexte dans 
     lequel les données ont été récupérée.
 
-Les résultats sont à envoyer par mail le 11/04. L'archive devra contenir
+Les résultats sont à envoyer par mail. L'archive devra contenir
 les sources des programmes d'extraction des règles d'association. Votre
 fichier résultat devra faire moins de 1Mo (s'il fait plus tronquez le).
 
