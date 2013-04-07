@@ -232,4 +232,4 @@ Si Lift(X→Y) > 1 Alors la corrélation entre X et Y est positive et  indique d
 -   Pour vous aider à mieux visualiser les items les plus représentés, générez le tag cloud de votre fichier de données en utilisant un service comme (http://tagcrowd.com/).
 -   Sélectionner les 10 meilleures règles vis à vis du *Lift*.
 
-Votre travail doit être envoyé par mail le 14/04 avant 23h59.
+Votre travail doit être envoyé par mail le 14/04 avant 23h59 SST.
