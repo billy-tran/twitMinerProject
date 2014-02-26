@@ -10,18 +10,22 @@ nous allons essayer d'extraire des connaissances directement à partir
 des tweets venant du monde entier.
 
 Vous pouvez poser vos questions soit par mail à l’adresse
-[sebastien.nedjar@univ-amu.fr](mailto:sebastien.nedjar@univ-amu.fr) en
+[projet_bda@nedjar.com](mailto:projet_bda@nedjar.com) en
 faisant figurer [Projet_BDA] au début du sujet du message, soit
 directement par Twitter (@nedseb) en utilisant le hashtag #TwitMiner
 pour que tout le monde puisse bénéficier de la réponse.
 
 Ce projet peut être effectué en binôme ou trinôme.
 
-À la fin du projet (voir ci-dessous pour les dates) vous devrez envoyer pour chaque phase une archive au format 
+Lorsque vous aurez terminé une phase, vous devrez envoyer par mail (à l'adresse ci-dessus) une archive au format 
 zip contenant le travail réalisé ainsi qu'un fichier nommé "README.txt" expliquant clairement (10 lignes
 environs) ce que vous avez fait ainsi que la procédure à suivre pour
 tester votre travail. Le sujet du mail devra avoir le format suivant :
  `[Projet_BDA] Rendu Phase X: Nom1, Nom2, Nom3`
+ 
+**Attention au respect du format de vos email car les corrections sont partiellement automatisé et tout e-mail non correctement formaté peut ne pas être évalué !!**
+
+Ne tarder pas à travailler car certaines phases peuvent réclamer beaucoup de temps.
 
 Travail à réaliser :
 --------------------
@@ -199,7 +203,7 @@ une partie des règles n'apportant peu (ou pas du tout) de connaissances
 nouvelles.
 
 **Nettoyage du fichier de données :**
- La méthode de nettoyage utilisée est relativement simple mais permet
+La méthode de nettoyage utilisée est relativement simple mais permet
 d'éliminer la redondance introduite par les les mots de liaison. En effet, 
 les mots comme les articles, pronoms, etc... sont peu porteurs de sens pour 
 l'analyse Des régles d'association. 
@@ -232,4 +236,11 @@ Si Lift(X→Y) > 1 Alors la corrélation entre X et Y est positive et  indique d
 -   Pour vous aider à mieux visualiser les items les plus représentés, générez le tag cloud de votre fichier de données en utilisant un service comme (http://tagcrowd.com/).
 -   Sélectionner les 10 meilleures règles vis à vis du *Lift*.
 
-Votre travail doit être envoyé par mail le 14/04 avant 23h59 SST.
+### Phase 4 : Restitution des connaissances
+Lors de cette dernière phase du projet, vous devrez imaginer une interface Homme/Machine permetant à un utilisateur final d'exploiter vos résultat. Lors de cette phase vous êtes libre de choisir le support qui vous semble le plus adapter pour proposer une expérience utilisateur la plus aboutie possible.
+
+**Le travail à réaliser durant cette phase est le suivant :**
+-   Concevoir et implémenter une interface graphique de restitution des règles d'associations. Votre interface devra au minimum permettre de rechercher une règle par rapport aux items qu'elle contient et de trier le résultat par fréquence, confiance et lift.
+
+
+Votre travail doit être envoyé par mail au plus tard le 06/04 avant 23h59 SST. Ce projet donnera lieu à une soutenance orale qui sera prochainement annocé sur ADE.
