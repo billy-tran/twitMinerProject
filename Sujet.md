@@ -241,6 +241,3 @@ Lors de cette dernière phase du projet, vous devrez imaginer une interface Homm
 
 **Le travail à réaliser durant cette phase est le suivant :**
 -   Concevoir et implémenter une interface graphique de restitution des règles d'associations. Votre interface devra au minimum permettre de rechercher une règle par rapport aux items qu'elle contient et de trier le résultat par fréquence, confiance et lift.
-
-
-Votre travail doit être envoyé par mail au plus tard le 06/04 avant 23h59 SST. Ce projet donnera lieu à une soutenance orale qui sera prochainement annocé sur ADE.
