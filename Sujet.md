@@ -25,7 +25,7 @@ tester votre travail. Le sujet du mail devra avoir le format suivant :
  
 **Attention au respect du format de vos email car les corrections sont partiellement automatisé et tout e-mail non correctement formaté peut ne pas être évalué !!**
 
-Ne tarder pas à travailler car certaines phases peuvent réclamer beaucoup de temps. Une bonification pouvant représenter jusqu'à 10% de la note finale sera accordée aux étudiants envoyant leur travail en avance. Cette bonification sera proportionnelle à l'avance de l'équipe.
+Ne tarder pas à travailler car certaines phases peuvent réclamer du temps. Une bonification pouvant représenter jusqu'à 10% de la note finale sera accordée aux étudiants envoyant leur travail en avance. Cette bonification sera proportionnelle à l'avance de l'équipe.
 
 Travail à réaliser :
 --------------------
